@@ -1,11 +1,19 @@
 import cron from 'node-cron';
-import { fetchAndStoreCryptoData } from '../services/fetchCryptoData.js';
+import { fetchCurrentCryptoData, saveHistoricalCryptoData } from '../services/fetchCryptoData.js';
 
-// Runs every hour
 export const startCronJobs = () => {
-  cron.schedule('0 * * * *', async () => {
-    console.log('Running hourly crypto data sync...');
-    await fetchAndStoreCryptoData();
+  // Every 10 minutes: update current crypto data
+  cron.schedule('*/10 * * * *', async () => {
+    console.log('Fetching current crypto data (every 10 min)...');
+    await fetchCurrentCryptoData();
   });
-  console.log('Cron job scheduled: runs every hour');
+
+  // Every hour: save historical snapshot
+  cron.schedule('0 * * * *', async () => {
+    console.log('Saving historical crypto data (every hour)...');
+    const data = await fetchCurrentCryptoData(); // fetch latest current data first
+    await saveHistoricalCryptoData(data);
+  });
+
+  console.log('Cron jobs scheduled: 10min (current) & 1h (historical)');
 };

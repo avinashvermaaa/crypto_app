@@ -1,34 +1,45 @@
 import axios from 'axios';
+import { config } from 'dotenv';
 import CurrentCrypto from '../models/CurrentCrypto.js';
 import HistoricalCrypto from '../models/HistoricalCrypto.js';
 
-export const fetchAndStoreCryptoData = async () => {
+config();
+
+// Helper: convert env string to object
+const parseParams = (paramString) => {
+  return paramString.split(',').reduce((acc, curr) => {
+    const [key, value] = curr.split('=');
+    if (key && value) acc[key.trim()] = isNaN(value) ? value.trim() : Number(value);
+    return acc;
+  }, {});
+};
+
+// Fetch current crypto data only
+export const fetchCurrentCryptoData = async () => {
   try {
-    console.log('Fetching crypto data from CoinGecko...');
+    const params = parseParams(process.env.COINGECKO_API_PARAMS);
+    const { data } = await axios.get(process.env.COINGECKO_API_URL, { params });
 
-    const { data } = await axios.get(
-      'https://api.coingecko.com/api/v3/coins/markets',
-      {
-        params: {
-          vs_currency: 'usd',
-          order: 'market_cap_desc',
-          per_page: 10,
-          page: 1,
-          sparkline: false
-        }
-      }
-    );
-
-    // Store current data
+    // Update current data
     await CurrentCrypto.deleteMany({});
     await CurrentCrypto.insertMany(data);
 
-    // Save historical snapshot
+    console.log('Current crypto data updated successfully!');
+    return data;
+  } catch (error) {
+    console.error('Error fetching current crypto data:', error.message);
+    return null;
+  }
+};
+
+// Save historical snapshot
+export const saveHistoricalCryptoData = async (data) => {
+  try {
+    if (!data) return;
     const historical = new HistoricalCrypto({ data });
     await historical.save();
-
-    console.log('Crypto data updated successfully!');
+    console.log('Historical crypto data saved successfully!');
   } catch (error) {
-    console.error('Error fetching crypto data:', error.message);
+    console.error('Error saving historical crypto data:', error.message);
   }
 };

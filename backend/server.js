@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import cryptoRoutes from './routes/cryptoRoutes.js';
 import { startCronJobs } from './cron/cronJobs.js';
-import { fetchAndStoreCryptoData } from './services/fetchCryptoData.js';
+import { fetchCurrentCryptoData, saveHistoricalCryptoData } from './services/fetchCryptoData.js';
 
 dotenv.config();
 connectDB();
@@ -21,7 +21,8 @@ app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
 
   // Fetch initial data on startup
-  await fetchAndStoreCryptoData();
+  await fetchCurrentCryptoData();
+  await saveHistoricalCryptoData();
 
   // Start hourly cron job
   startCronJobs();
