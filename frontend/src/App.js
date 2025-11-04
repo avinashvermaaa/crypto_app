@@ -1,15 +1,15 @@
-import './App.css';
+import React from 'react';
+import Header from './components/Header';
+import CryptoList from './components/CryptoList';
+import './styles/App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Crypto App.
-        </p>
-      </header>
+    <div className="app">
+      <Header />
+      <CryptoList />
     </div>
   );
-}
+};
 
 export default App;
