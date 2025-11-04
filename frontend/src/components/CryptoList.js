@@ -12,23 +12,12 @@ const CryptoList = () => {
       setCryptos(data);
       setLoading(false);
     };
-
     fetchCryptos();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
-  if (!cryptos || cryptos.length === 0) return <h3>No data available 😕</h3>;
-
-  return (
-    <div className="crypto-list">
-      {cryptos.map((crypto) => (
-        <CryptoCard key={crypto.id} crypto={crypto} />
-      ))}
-    </div>
-  );
+  return <CryptoCard cryptos={cryptos} />;
 };
 
 export default CryptoList;

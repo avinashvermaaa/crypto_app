@@ -3,13 +3,15 @@
 .app {
   text-align: center;
   font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 10px;
 }
 
 .app-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  font-size: larger;
   color: white;
-  padding: 20px;
+  padding: 5px;
   margin-bottom: 20px;
 }
 
@@ -34,4 +36,127 @@
 .crypto-card p {
   font-size: 16px;
   margin: 5px 0;
+}
+
+/* New */
+/* crpyto table */
+.crypto-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.crypto-table th, .crypto-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.crypto-table th {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.crypto-table tr:nth-child(even) {
+  background-color: #f3f6ff;
+}
+
+.crypto-table tr:nth-child(odd) {
+  background-color: #e8f0ff;
+}
+
+.crypto-table tr:hover {
+  background-color: #d0e0ff;
+  transition: 0.3s;
+}
+
+.crypto-table td {
+  color: #333;
+}
+
+/* Optional: color the 24h change column */
+.crypto-table td.positive {
+  color: #28a745; /* green */
+  font-weight: bold;
+}
+
+.crypto-table td.negative {
+  color: #dc3545; /* red */
+  font-weight: bold;
+}
+
+
+
+/* new overflow table */
+/* Table container */
+.crypto-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  table-layout: fixed;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table header */
+.crypto-table th {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  text-transform: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 12px 10px;
+  text-align: left;
+}
+
+/* Table body cells */
+.crypto-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  color: #333;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Even/Odd rows for better readability */
+.crypto-table tr:nth-child(even) {
+  background-color: #f3f6ff;
+}
+
+.crypto-table tr:nth-child(odd) {
+  background-color: #e8f0ff;
+}
+
+/* Hover effect */
+.crypto-table tr:hover {
+  background-color: #d0e0ff;
+  transition: 0.3s;
+}
+
+/* Positive and negative 24h change */
+.positive {
+  color: #28a745; /* green */
+  font-weight: bold;
+}
+
+.negative {
+  color: #dc3545; /* red */
+  font-weight: bold;
+}
+
+/* Optional: responsive ellipsis for smaller screens */
+@media (max-width: 768px) {
+  .crypto-table th,
+  .crypto-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
 }

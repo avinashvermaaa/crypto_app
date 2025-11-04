@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
   return (
     <header className="app-header">
-      <h1>Top Cryptocurrencies Tracker</h1>
+      <h1>Top Crypto-Currencies Tracker</h1>
     </header>
   );
 };
