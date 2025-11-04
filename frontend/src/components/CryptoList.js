@@ -20,6 +20,8 @@ const CryptoList = () => {
     return <div>Loading...</div>;
   }
 
+  if (!cryptos || cryptos.length === 0) return <h3>No data available 😕</h3>;
+
   return (
     <div className="crypto-list">
       {cryptos.map((crypto) => (
