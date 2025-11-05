@@ -8,7 +8,8 @@ const CryptoCard = ({ cryptos }) => {
   const [historicalData, setHistoricalData] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ;
+  // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ;
+  const API_BASE_URL = 'https://crypto-app-u7rb.onrender.com' ;
   // Fetch historical data when selectedCoin changes
   useEffect(() => {
     if (!selectedCoin) return;
@@ -16,7 +17,7 @@ const CryptoCard = ({ cryptos }) => {
     const fetchHistorical = async () => {
       try {
         setLoadingHistory(true);
-        const url = `${API_BASE_URL}/historical/${selectedCoin}`;
+        const url = `${API_BASE_URL}/api/historical/${selectedCoin}`;
         const { data } = await axios.get(url);
         setHistoricalData(data);
         setLoadingHistory(false);
