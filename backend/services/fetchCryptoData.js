@@ -14,7 +14,6 @@ const parseParams = (paramString) => {
   }, {});
 };
 
-// Fetch current crypto data only
 export const fetchCurrentCryptoData = async () => {
   try {
     const params = parseParams(process.env.COINGECKO_API_PARAMS);
@@ -23,8 +22,7 @@ export const fetchCurrentCryptoData = async () => {
     // Update current data
     await CurrentCrypto.deleteMany({});
     await CurrentCrypto.insertMany(data);
-
-    console.log('Current crypto data updated successfully!');
+    console.log(`Current crypto data updated successfully on :- ${new Date()}`);
     return data;
   } catch (error) {
     console.error('Error fetching current crypto data:', error.message);
@@ -32,13 +30,13 @@ export const fetchCurrentCryptoData = async () => {
   }
 };
 
-// Save historical snapshot
+// Save historical data
 export const saveHistoricalCryptoData = async (data) => {
   try {
     if (!data) return;
     const historical = new HistoricalCrypto({ data });
     await historical.save();
-    console.log('Historical crypto data saved successfully!');
+    console.log(`Historical crypto data saved successfully on :- ${new Date()}`);
   } catch (error) {
     console.error('Error saving historical crypto data:', error.message);
   }

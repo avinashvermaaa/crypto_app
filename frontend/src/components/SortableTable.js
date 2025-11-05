@@ -41,12 +41,12 @@ const SortableTable = ({ data, columns }) => {
     <table className="crypto-table">
       {/* Column widths based on content */}
       <colgroup>
-        <col style={{ width: '40px' }} />   {/* # */}
-        <col style={{ width: '180px' }} />  {/* Coin */}
-        <col style={{ width: '120px' }} />  {/* Current Price */}
-        <col style={{ width: '100px' }} />  {/* 24h Change */}
-        <col style={{ width: '140px' }} />  {/* Market Cap */}
-        <col style={{ width: '160px' }} />  {/* Last Updated */}
+        <col style={{ width: '40px' }} />   
+        <col style={{ width: '180px' }} />  
+        <col style={{ width: '120px' }} />  
+        <col style={{ width: '100px' }} />  
+        <col style={{ width: '140px' }} />  
+        <col style={{ width: '160px' }} />  
       </colgroup>
 
       <thead>

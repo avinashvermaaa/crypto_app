@@ -8,6 +8,7 @@ const CryptoCard = ({ cryptos }) => {
   const [historicalData, setHistoricalData] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ;
   // Fetch historical data when selectedCoin changes
   useEffect(() => {
     if (!selectedCoin) return;
@@ -15,7 +16,8 @@ const CryptoCard = ({ cryptos }) => {
     const fetchHistorical = async () => {
       try {
         setLoadingHistory(true);
-        const { data } = await axios.get(`http://localhost:5000/api/historical/${selectedCoin}`);
+        const url = `${API_BASE_URL}/historical/${selectedCoin}`;
+        const { data } = await axios.get(url);
         setHistoricalData(data);
         setLoadingHistory(false);
       } catch (error) {
@@ -26,7 +28,7 @@ const CryptoCard = ({ cryptos }) => {
     };
 
     fetchHistorical();
-  }, [selectedCoin]);
+  }, [selectedCoin, API_BASE_URL]);
 
   if (!cryptos || cryptos.length === 0) {
     return <h3>No data available 😕</h3>;
@@ -84,8 +86,9 @@ const CryptoCard = ({ cryptos }) => {
               historicalData={historicalData}
               coinName={selectedCoin}
             />
-          )}
+        )}
         </div>
+
       )}
     </div>
   );

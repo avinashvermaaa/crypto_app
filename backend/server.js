@@ -13,12 +13,13 @@ connectDB();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: process.env.CORS_URL }));
+
 // Routes
 app.use('/api/cryptos', cryptoRoutes);
 app.use('/api/historical', HistoricalRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
 

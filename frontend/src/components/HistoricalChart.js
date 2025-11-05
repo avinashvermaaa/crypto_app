@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -18,7 +19,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 const HistoricalChart = ({ historicalData, coinName }) => {
@@ -26,11 +28,14 @@ const HistoricalChart = ({ historicalData, coinName }) => {
     return <p>No historical data available.</p>;
   }
 
-  // Prepare chart labels (timestamps) and data (prices)
-  const labels = historicalData.map((snapshot) =>
-    new Date(snapshot._id).toLocaleTimeString()
+  const sortedData = [...historicalData].sort(
+    (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
   );
-  const prices = historicalData.map((snapshot) => snapshot.current_price);
+
+  const labels = sortedData.map((snapshot) =>
+    new Date(snapshot.timestamp).toLocaleString()
+  );
+  const prices = sortedData.map((snapshot) => snapshot.current_price);
 
   const data = {
     labels,
@@ -41,7 +46,7 @@ const HistoricalChart = ({ historicalData, coinName }) => {
         fill: true,
         backgroundColor: 'rgba(37, 117, 252, 0.2)',
         borderColor: 'rgba(37, 117, 252, 1)',
-        tension: 0.2,
+        tension: 0.3,
         pointRadius: 3,
       },
     ],
@@ -50,26 +55,15 @@ const HistoricalChart = ({ historicalData, coinName }) => {
   const options = {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: `${coinName} Price History`,
-      },
+      legend: { position: 'top' },
+      title: { display: true, text: `${coinName} Price History` },
     },
     scales: {
       x: {
-        title: {
-          display: true,
-          text: 'Time',
-        },
+        title: { display: true, text: 'Time' },
       },
       y: {
-        title: {
-          display: true,
-          text: 'Price (USD)',
-        },
+        title: { display: true, text: 'Price (USD)' },
       },
     },
   };
